@@ -10,13 +10,17 @@ using IHost host = Host.CreateDefaultBuilder(args).Build();
 
 var ConnectionString = host.Services.GetRequiredService<IConfiguration>().GetValue<string>("Device:ConnectString");
 
-var deviceClient = DeviceClient.CreateFromConnectionString(ConnectionString);
+var deviceClient = DeviceClient.CreateFromConnectionString(ConnectionString, 
+                                                        TransportType.Mqtt,
+                                                        new ClientOptions {
+                                                            SasTokenTimeToLive = TimeSpan.FromSeconds(5)
+                                                        }
+                                                        );
 IRetryPolicy retryPolicy = new ExponentialBackoff(3, TimeSpan.FromMicroseconds(100),
   TimeSpan.FromSeconds(3), TimeSpan.FromMicroseconds(100));
 deviceClient.SetRetryPolicy(retryPolicy);
 
 deviceClient.SetConnectionStatusChangesHandler(ConnectionStatusChangeHandlerAsync);
-Console.WriteLine("设备连接正常。");
 
 using var cts = new CancellationTokenSource();
 await SendDeviceToCloudMessagesAsync(deviceClient, cts.Token);
