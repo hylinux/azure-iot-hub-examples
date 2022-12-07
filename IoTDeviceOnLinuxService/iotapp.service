@@ -1,0 +1,19 @@
+[Unit]
+Description=IoT App Service On Linux
+
+[Service]
+WorkingDirectory=/home/ghw/iotapp
+ExecStart=/usr/bin/dotnet /home/ghw/iotapp/IoTDeviceOnLinuxService.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=iotapp
+User=ghw
+Environment=DOTNET_ENVIRONMENT=Production
+Environment=Device__ConnectionString__Primary=HostName=<Primary Connection String>
+Environment=Device__ConnectionString__Secondary=<Secondy connection string>
+Environment=Device__Connection__TransportType=mqtt
+
+[Install]
+WantedBy=multi-user.target
