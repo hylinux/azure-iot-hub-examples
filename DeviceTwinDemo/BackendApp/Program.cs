@@ -1,4 +1,9 @@
+using BackendApp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddSingleton<IoTServiceClientService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

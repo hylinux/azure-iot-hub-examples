@@ -4,6 +4,11 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>54d8a29a-6daa-48fe-b784-11fbceb38b3d</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Devices" Version="1.38.2" />
+  </ItemGroup>
 
 </Project>
