@@ -1,5 +1,5 @@
 ﻿using CommandLine;
-using FileUploadSample;
+using DeviceUploadFileDemo;
 using Microsoft.Azure.Devices.Client;
 
 
